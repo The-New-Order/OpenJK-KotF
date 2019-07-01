@@ -85,6 +85,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define	BASEGAME "base"
 #define OPENJKGAME "KotF"
 
+#define SHOTS_TOGGLEBIT 0x00000080
+
 #define Q3CONFIG_NAME PRODUCT_NAME ".cfg"
 
 #define BASE_SAVE_COMPAT // this is defined to disable/fix some changes that break save compatibility
@@ -1647,6 +1649,7 @@ public:
 	vec3_t		serverViewOrg;
 
 	qboolean	saberInFlight;
+	int			shotsRemaining;
 #ifdef JK2_MODE
 	qboolean	saberActive;	// -- JK2 --
 
@@ -1958,6 +1961,7 @@ public:
 		saved_game.write<int8_t>(weapons);
 		saved_game.write<float>(serverViewOrg);
 		saved_game.write<int32_t>(saberInFlight);
+		saved_game.write<int32_t>(shotsRemaining);
 
 #ifdef JK2_MODE
 		saved_game.write<int32_t>(saberActive);
@@ -2128,6 +2132,7 @@ public:
 		saved_game.read<int8_t>(weapons);
 		saved_game.read<float>(serverViewOrg);
 		saved_game.read<int32_t>(saberInFlight);
+		saved_game.read<int32_t>(shotsRemaining);
 
 #ifdef JK2_MODE
 		saved_game.read<int32_t>(saberActive);
