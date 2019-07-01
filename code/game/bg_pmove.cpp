@@ -8928,6 +8928,10 @@ static void PM_BeginWeaponChange( int weapon ) {
 			cg.zoomMode = 0;
 			cg.zoomTime = cg.time;
 		}
+		else if ( cg.zoomMode >= ST_A280 )
+		{
+			cg.zoomMode = 0;
+		} 
 	}
 
 	if ( pm->gent
@@ -14694,6 +14698,43 @@ void PM_AdjustAttackStates( pmove_t *pm )
 
 	}
 
+	if ( pm->ps->weapon != WP_DISRUPTOR && pm->gent && (pm->gent->s.number<MAX_CLIENTS||G_ControlledByPlayer(pm->gent)) && pm->ps->weaponstate != WEAPON_DROPPING && weaponData[pm->ps->weapon].scopeType >= ST_A280 )
+	{
+		if ( !(pm->ps->eFlags & EF_ALT_FIRING) && (pm->cmd.buttons & BUTTON_ALT_ATTACK) )
+		{
+			if ( cg.zoomMode == 0 )
+			{
+				switch ( weaponData[pm->ps->weapon].scopeType )
+				{
+					case ST_A280:
+						cg.zoomMode = ST_A280;
+						cg_zoomFov = 15.0f;
+						break;
+					case ST_WESTAR_M5:
+						cg.zoomMode = ST_WESTAR_M5;
+						cg_zoomFov = 20.0f;
+						break;
+					case ST_BOWCASTER:
+						cg.zoomMode = ST_BOWCASTER;
+						cg_zoomFov = 25.0f;
+						break;
+					case ST_DLT_20A:
+						cg.zoomMode = ST_DLT_20A;
+						cg_zoomFov = 10.0f;
+						break;
+				}
+			}
+			else if ( cg.zoomMode >= ST_A280 )
+			{
+				cg.zoomMode = 0;
+			}
+		}
+		else if (pm->ps->eFlags & EF_ALT_FIRING)
+		{
+			pm->cmd.buttons &= ~BUTTON_ATTACK;
+		}
+	}
+
 	// Check for binocular specific mode
 	if ( cg.zoomMode == 1 && pm->gent && (pm->gent->s.number<MAX_CLIENTS||G_ControlledByPlayer(pm->gent)) ) //
 	{
@@ -14800,6 +14841,17 @@ void PM_AdjustAttackStates( pmove_t *pm )
 		else
 		{
 			// don't let an alt-fire through
+			pm->cmd.buttons &= ~BUTTON_ALT_ATTACK;
+		}
+	}
+
+	if (pm->ps->weapon != WP_DISRUPTOR && pm->gent && (pm->gent->s.number<MAX_CLIENTS||G_ControlledByPlayer(pm->gent)) && weaponData[pm->ps->weapon].scopeType >= ST_A280)
+	{
+		if (pm->cmd.buttons & BUTTON_ATTACK && cg.zoomMode >= ST_A280)
+		{
+		}
+		else
+		{
 			pm->cmd.buttons &= ~BUTTON_ALT_ATTACK;
 		}
 	}

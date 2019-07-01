@@ -121,6 +121,14 @@ enum FiringType
 	FT_BURST
 };
 
+enum ScopeType
+{
+	ST_A280 = 4,
+	ST_WESTAR_M5,
+	ST_BOWCASTER,
+	ST_DLT_20A
+};
+
 typedef struct weaponData_s
 {
 	char	classname[32];		// Spawning name
@@ -177,6 +185,7 @@ typedef struct weaponData_s
 	int		burstFireDelay;
 	int		shotsPerBurst;
 	int		firingType;
+	int 	scopeType;
 
 } weaponData_t;
 
@@ -492,6 +501,10 @@ typedef struct ammoData_s
 #define TUSKEN_RIFLE_DAMAGE_EASY	20		// damaging
 #define TUSKEN_RIFLE_DAMAGE_MEDIUM	30		// very damaging
 #define TUSKEN_RIFLE_DAMAGE_HARD	50		// extremely damaging
+
+// Scope Types
+//--------------
+#define SCOPE_SPREAD					0.01f
 
 
 #endif//#ifndef __WEAPONS_H__

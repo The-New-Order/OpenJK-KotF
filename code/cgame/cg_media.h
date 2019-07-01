@@ -201,6 +201,10 @@ typedef struct {
 	qhandle_t	disruptorLight;
 	qhandle_t	disruptorInsertTick;
 
+	// Scope graphics
+	qhandle_t	scopeMask;
+	qhandle_t	scopeInsert;
+
 	// Binocular graphics
 	qhandle_t	binocularCircle;
 	qhandle_t	binocularMask;
