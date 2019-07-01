@@ -502,6 +502,10 @@ typedef struct ammoData_s
 #define TUSKEN_RIFLE_DAMAGE_MEDIUM	30		// very damaging
 #define TUSKEN_RIFLE_DAMAGE_HARD	50		// extremely damaging
 
+// Firing Types
+//--------------
+#define BURST_ENERGY_SHOT				4
+
 // Scope Types
 //--------------
 #define SCOPE_SPREAD					0.01f
