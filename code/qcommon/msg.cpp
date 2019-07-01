@@ -1002,6 +1002,8 @@ static const netField_t	playerStateFields[] =
 { PSF(damagePitch), -8 },
 { PSF(damageCount), 8 },
 { PSF(shotsRemaining), 8 },
+{ PSF(checkWeaponChange), 8 },
+{ PSF(firingMode), 8 },
 #ifdef JK2_MODE
 { PSF(saberColor), 8 },
 { PSF(saberActive), 8 },

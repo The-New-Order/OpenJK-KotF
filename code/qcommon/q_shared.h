@@ -1650,6 +1650,8 @@ public:
 
 	qboolean	saberInFlight;
 	int			shotsRemaining;
+	bool		checkWeaponChange;
+	bool		firingMode;
 #ifdef JK2_MODE
 	qboolean	saberActive;	// -- JK2 --
 
@@ -1962,6 +1964,8 @@ public:
 		saved_game.write<float>(serverViewOrg);
 		saved_game.write<int32_t>(saberInFlight);
 		saved_game.write<int32_t>(shotsRemaining);
+		saved_game.write<int8_t>(checkWeaponChange);
+		saved_game.write<int8_t>(firingMode);
 
 #ifdef JK2_MODE
 		saved_game.write<int32_t>(saberActive);
@@ -2133,6 +2137,8 @@ public:
 		saved_game.read<float>(serverViewOrg);
 		saved_game.read<int32_t>(saberInFlight);
 		saved_game.read<int32_t>(shotsRemaining);
+		saved_game.read<int8_t>(checkWeaponChange);
+		saved_game.read<int8_t>(firingMode);
 
 #ifdef JK2_MODE
 		saved_game.read<int32_t>(saberActive);

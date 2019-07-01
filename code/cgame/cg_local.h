@@ -186,6 +186,7 @@ struct centity_s
 	float			rotValue; //rotation increment for repeater effect
 
 	int				snapShotTime;
+	bool			checkFiringMode;
 
 	//Pointer to corresponding gentity
 	gentity_t		*gent;
