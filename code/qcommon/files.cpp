@@ -2873,7 +2873,12 @@ void FS_Startup( const char *gameName ) {
 	if (!homePath || !homePath[0]) {
 		homePath = fs_basepath->string;
 	}
-	fs_homepath = Cvar_Get ("fs_homepath", homePath, CVAR_USER_CREATED );
+	#ifdef _WIN32
+		fs_homepath = Cvar_Get ("fs_homepath", homePath, CVAR_USER_CREATED );
+	#else
+		fs_homepath = Cvar_Get ("fs_homepath", homePath, CVAR_INIT|CVAR_PROTECTED );
+	#endif
+
 	fs_gamedirvar = Cvar_Get ("fs_game", "KotF", CVAR_INIT|CVAR_SYSTEMINFO );
 
 	fs_dirbeforepak = Cvar_Get("fs_dirbeforepak", "0", CVAR_INIT|CVAR_PROTECTED);
