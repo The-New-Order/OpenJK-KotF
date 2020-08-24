@@ -46,6 +46,8 @@ extern vmCvar_t	cg_SFXSabers;
 extern vmCvar_t	cg_SFXSabersGlowSize;
 extern vmCvar_t	cg_SFXSabersCoreSize;
 
+extern vmCvar_t	cg_bladeChoice;
+
 /*
 
 player entities generate a great deal of information from implicit ques
@@ -5631,9 +5633,6 @@ static void CG_RGBForSaberColor( saber_colors_t color, vec3_t rgb )
 		case SABER_PURPLE:
 			VectorSet( rgb, 0.9f, 0.2f, 1.0f );
 			break;
-		case SABER_UNSTABLE_RED:
-			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
-			break;
 		case SABER_BLACK:
 			VectorSet(rgb, 1.0f, 1.0f, 1.0f );
 			break;
@@ -5828,12 +5827,6 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
 			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
-		case SABER_UNSTABLE_RED:
-			glow = cgs.media.redSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
-			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
-			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
-			break;
 		case SABER_BLACK:
 			glow = cgs.media.blackSaberGlowShader;
 			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_black");
@@ -5842,7 +5835,14 @@ void CG_DoSFXSaber( vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t
 			break;
 		default://SABER_RGB
 			glow = cgs.media.rgbSaberGlowShader;
-			cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			if (cg_bladeChoice.integer == 1)
+			{
+				cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade_unstable");
+			}
+			else
+			{
+				cgs.media.SaberBladeShader = cgi_R_RegisterShader("SFX_Sabers/saber_blade");
+			}
 			cgs.media.SaberEndShader = cgi_R_RegisterShader("SFX_Sabers/saber_end");
 			cgs.media.SaberTrailShader = cgi_R_RegisterShader("SFX_Sabers/saber_trail");
 			break;
@@ -6208,10 +6208,6 @@ static void CG_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax
 		case SABER_PURPLE:
 			glow = cgs.media.purpleSaberGlowShader;
 			blade = cgs.media.purpleSaberCoreShader;
-			break;
-		case SABER_UNSTABLE_RED:
-			glow = cgs.media.unstableRedSaberGlowShader;
-			blade = cgs.media.unstableRedSaberCoreShader;
 			break;
 		case SABER_BLACK:
 			glow = cgs.media.blackSaberGlowShader;
@@ -7074,9 +7070,6 @@ if (cg_SFXSabers.integer == 0)
 						case SABER_PURPLE:
 							VectorSet( rgb1, 220.0f, 0.0f, 255.0f );
 							break;
-						case SABER_UNSTABLE_RED:
-							VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
-							break;
 						case SABER_BLACK:
 							VectorSet( rgb1, 255.0f, 255.0f, 255.0f );
 							break;
@@ -7297,9 +7290,6 @@ else
 				break;
 			case SABER_BLUE:
 				VectorSet( rgb1, 0.0f, 0.0f, 255.0f );
-				break;
-			case SABER_UNSTABLE_RED:
-				VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
 				break;
 			case SABER_BLACK:
 				VectorSet( rgb1, 255.0f, 255.0f, 255.0f );

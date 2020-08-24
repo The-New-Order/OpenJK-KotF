@@ -39,6 +39,7 @@ extern qboolean NPCsPrecached;
 extern vec3_t playerMins;
 extern vec3_t playerMaxs;
 extern stringID_table_t WPTable[];
+extern vmCvar_t	cg_bladeChoice;
 
 #define		MAX_MODELS_PER_LEVEL	60
 
@@ -296,10 +297,6 @@ saber_colors_t TranslateSaberColor(const char *name)
 	if (!Q_stricmp(name, "purple"))
 	{
 		return SABER_PURPLE;
-	}
-	if (!Q_stricmp(name, "unstable_red"))
-	{
-		return SABER_UNSTABLE_RED;
 	}
 	if (!Q_stricmp(name, "black"))
 	{
